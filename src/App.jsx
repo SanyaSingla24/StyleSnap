@@ -61,7 +61,7 @@ export default function App() {
         </div>
 
         {/* PAGE CONTENT */}
-        <div className="flex-1 bg-yellow-300 p-12 overflow-y-auto">
+        <div className="flex-1 bg-yellow-300 p-4 md:p-8 overflow-y-auto">
           {page === "Style Studio" && (
             <StyleStudio page={page} setPage={setPage} />
           )}

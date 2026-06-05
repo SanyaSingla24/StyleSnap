@@ -47,10 +47,10 @@ export default function Wardrobe({ setPage }) {
 
   return (
     <div className="max-w-6xl mx-auto pb-12 animate-fade-in">
-      <div className="flex justify-between items-end mb-8 border-b border-gray-200 pb-6">
+      <div className="flex justify-between items-end mb-6 border-b border-gray-200 pb-4">
         <div>
-          <h2 className="text-4xl font-extrabold tracking-tight text-black mb-2">My Wardrobe</h2>
-          <p className="text-gray-500 font-medium">Logged in as <span className="font-bold text-black">@{username}</span></p>
+          <h2 className="text-3xl font-black tracking-tight text-black mb-1">My Wardrobe</h2>
+          <p className="text-xs text-gray-500 font-semibold">Logged in as <span className="font-bold text-black">@{username}</span></p>
         </div>
       </div>
 

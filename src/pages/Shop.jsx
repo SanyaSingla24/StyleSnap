@@ -200,11 +200,11 @@ export default function Shop({ setPage, setSelectedOutfit, setFromShop }) {
   return (
     <div className="h-full px-6 py-4 animate-fade-in">
       {/* HEADER */}
-      <div className="mb-10 text-left">
-        <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-2">
+      <div className="mb-6 text-left">
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-1">
           The Style Shop
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-sm text-gray-655 font-medium">
           Discover and try on clothes from top designers.
         </p>
       </div>

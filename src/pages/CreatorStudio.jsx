@@ -84,14 +84,14 @@ export default function CreatorStudio() {
 
   return (
     <div className="max-w-4xl mx-auto pb-12 animate-fade-in">
-      <div className="mb-8">
-        <h2 className="text-4xl font-extrabold tracking-tight text-black mb-2">
+      <div className="mb-6">
+        <h2 className="text-3xl font-black tracking-tight text-black mb-1">
           {role === "designer" ? "Designer Studio 🧵" : "Influencer Studio ✨"}
         </h2>
-        <p className="text-gray-500 font-medium">Welcome back, <span className="font-bold text-black">@{username}</span>.</p>
+        <p className="text-xs text-gray-500 font-semibold">Welcome back, <span className="font-bold text-black">@{username}</span>.</p>
       </div>
 
-      <div className="bg-white p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100">
+      <div className="bg-white p-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100">
         
         {role === "designer" ? (
           <div>

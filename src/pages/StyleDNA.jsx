@@ -250,17 +250,17 @@ export default function StyleDNA({ setPage }) {
       
       {/* 0: ONBOARDING SCREEN */}
       {step === 0 && (
-        <div className="max-w-xl text-center bg-white rounded-3xl p-10 border border-gray-200 shadow-xl animate-fade-in">
-          <div className="w-16 h-16 rounded-2xl bg-yellow-300 text-3xl flex items-center justify-center mx-auto mb-6 shadow-inner">
+        <div className="max-w-xl text-center bg-white rounded-2xl p-6 border border-gray-200 shadow-xl animate-fade-in">
+          <div className="w-14 h-14 rounded-2xl bg-yellow-300 text-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
             🧬
           </div>
-          <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-4">
+          <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-2">
             Discover Your Style DNA.
           </h1>
-          <p className="text-gray-600 font-medium text-lg leading-relaxed mb-8">
+          <p className="text-gray-655 font-semibold text-sm leading-relaxed mb-5">
             Complete a visual, 3-step styling questionnaire to uncover your personal aesthetic, signature colors, and fit preferences.
             <br />
-            <span className="text-gray-900 font-extrabold text-sm block mt-3">
+            <span className="text-gray-900 font-extrabold text-xs block mt-2">
               ✦ Personalizes the AI Stylist's feedback automatically
             </span>
           </p>

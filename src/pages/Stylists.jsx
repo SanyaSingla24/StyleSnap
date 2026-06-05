@@ -25,11 +25,11 @@ export default function Stylists() {
   return (
     <div className="h-full px-6 py-4">
       {/* HEADER */}
-      <div className="mb-10 text-left">
-        <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-2">
+      <div className="mb-6 text-left">
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-1">
           Expert Designers
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-sm text-gray-655 font-medium">
           Connect with professional fashion stylists to elevate your style quotient
         </p>
       </div>

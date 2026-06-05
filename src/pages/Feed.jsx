@@ -399,16 +399,16 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
   return (
     <div className="h-full px-4 sm:px-8 py-4 animate-fade-in max-w-2xl mx-auto">
       {/* HEADER */}
-      <div className="mb-10 text-center relative">
-        <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight mb-2">
+      <div className="mb-6 text-center relative">
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-1">
           The Feed
         </h1>
-        <p className="text-lg text-gray-600 mb-6">
+        <p className="text-sm text-gray-655 mb-4">
           Get inspired by influencers and community styling.
         </p>
         <button 
           onClick={() => setShowUploadModal(true)}
-          className="bg-black text-white px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-gray-800 transition-colors shadow-lg"
+          className="bg-black text-white px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-gray-800 transition-colors shadow-lg"
         >
           📸 Upload Yours
         </button>

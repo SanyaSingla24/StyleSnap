@@ -11,33 +11,33 @@ export default function UploadHero({ onDemo, onUpload }) {
   }
 
   return (
-    <div className="bg-yellow-400 py-8 px-6 text-center">
+    <div className="bg-yellow-400 py-6 px-4 text-center">
 
       {/* TITLE */}
-      <h1 className="text-5xl font-extrabold mb-3">
+      <h1 className="text-3xl font-black mb-2">
         Style Studio
       </h1>
 
       {/* SUBTITLE */}
-      <p className="text-base text-gray-800 mb-6 max-w-xl mx-auto">
+      <p className="text-sm text-gray-855 mb-4 max-w-xl mx-auto font-medium">
         Upload a photo of your outfit. Our AI stylist will reveal what works,
         what doesn’t, and how to elevate your look.
       </p>
 
       {/* UPLOAD CARD */}
-      <div className="bg-white max-w-3xl mx-auto rounded-3xl p-8 shadow-xl">
+      <div className="bg-white max-w-2xl mx-auto rounded-2xl p-6 shadow-xl">
 
         {/* ICON */}
-        <div className="w-12 h-12 bg-black text-yellow-400 rounded-xl flex items-center justify-center mx-auto mb-4 text-xl">
+        <div className="w-10 h-10 bg-black text-yellow-400 rounded-lg flex items-center justify-center mx-auto mb-3 text-lg">
           ⬆️
         </div>
 
         {/* TEXT */}
-        <h3 className="text-xl font-bold mb-1">
+        <h3 className="text-lg font-bold mb-0.5 text-gray-900">
           Drag & drop your outfit photo
         </h3>
 
-        <p className="text-gray-500 mb-6 text-sm">
+        <p className="text-gray-555 mb-4 text-xs font-semibold">
           or use one of the options below
         </p>
 

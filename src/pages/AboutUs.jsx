@@ -28,14 +28,14 @@ export default function AboutUs() {
   return (
     <div className="h-full px-6 py-4 animate-fade-in max-w-4xl mx-auto">
       {/* HERO SECTION */}
-      <div className="mb-12 text-center">
-        <span className="text-xs font-bold text-gray-500 bg-white/70 px-4 py-1.5 rounded-full uppercase tracking-widest border border-gray-200 shadow-sm">
+      <div className="mb-6 text-center">
+        <span className="text-[10px] font-bold text-gray-500 bg-white/70 px-3 py-1 rounded-full uppercase tracking-widest border border-gray-200 shadow-sm">
           Our Vision
         </span>
-        <h1 className="text-5xl font-black text-gray-900 tracking-tight mt-4 mb-3">
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight mt-2 mb-2">
           StyleSnap+ Story
         </h1>
-        <p className="text-lg text-gray-600 max-w-xl mx-auto leading-relaxed">
+        <p className="text-sm text-gray-655 max-w-xl mx-auto leading-relaxed font-medium">
           Bridging advanced deep-learning vision pipelines with personal fashion self-expression.
         </p>
       </div>

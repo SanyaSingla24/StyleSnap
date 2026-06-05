@@ -3,6 +3,7 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import path from "path"
+import fs from "fs"
 import { fileURLToPath } from 'url'
 
 // Database Configuration
@@ -56,6 +57,15 @@ app.use("/api", postsRouter)
 app.use("/api", productsRouter)
 app.use("/api", wardrobeRouter)
 app.use("/api", aiRouter)
+
+// Serve frontend assets in production (registered after API routes)
+if (process.env.NODE_ENV === 'production' || fs.existsSync(path.join(__dirname, 'dist'))) {
+  console.log("📦 Serving compiled React static frontend from dist/")
+  app.use(express.static(path.join(__dirname, 'dist')))
+  app.get('/*splat', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+  })
+}
 
 // Multer error handling middleware (registered after routers to catch file size/limits issues)
 app.use(handleMulterError)

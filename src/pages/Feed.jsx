@@ -223,7 +223,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/posts");
+      const res = await fetch("/api/posts");
       const data = await res.json();
       if (Array.isArray(data)) {
         setPosts(data);
@@ -262,7 +262,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
 
     // Real DB post — call the API
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${postId}/like`, {
+      const res = await fetch(`/api/posts/${postId}/like`, {
         method: "POST",
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -298,7 +298,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
 
     // Real DB post — call the API
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment`, {
+      const res = await fetch(`/api/posts/${postId}/comment`, {
         method: "POST",
         headers: { 
           "Authorization": `Bearer ${token}`,
@@ -327,7 +327,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+      const res = await fetch(`/api/posts/${postId}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -350,7 +350,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
       const formData = new FormData();
       formData.append("image", uploadFile);
 
-      const uploadRes = await fetch("http://localhost:5000/api/upload", {
+      const uploadRes = await fetch("/api/upload", {
         method: "POST",
         body: formData
       });
@@ -368,7 +368,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
         imageUrl: uploadData.imageUrl
       }));
 
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch("/api/posts", {
         method: "POST",
         headers: { 
           "Authorization": `Bearer ${token}`,

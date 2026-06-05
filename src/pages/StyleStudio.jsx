@@ -19,7 +19,7 @@ export default function StyleStudio({ page, setPage }) {
     formData.append("outfit", file)
 
     try {
-      const res = await fetch("http://localhost:5000/api/analyze", {
+      const res = await fetch("/api/analyze", {
         method: "POST",
         body: formData
       })
@@ -33,7 +33,7 @@ export default function StyleStudio({ page, setPage }) {
       setAnalysisData(data)
       setShowDemo(true)
     } catch (err) {
-      alert(`Style Analysis failed: ${err.message}. Make sure your server is running on port 5000.`)
+      alert(`Style Analysis failed: ${err.message}`)
       console.error(err)
       setOutfitImage(null)
     } finally {

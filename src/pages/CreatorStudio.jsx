@@ -23,7 +23,7 @@ export default function CreatorStudio() {
     if (!productName || !productPrice || !productImage || !productLink) return alert("Please fill all required fields");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/products", {
+      const res = await fetch("/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -50,7 +50,7 @@ export default function CreatorStudio() {
     if (!postImage) return alert("Please provide an image URL");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

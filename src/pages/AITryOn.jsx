@@ -91,7 +91,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
     formData.append("description", description);
 
     try {
-      const res = await fetch("http://localhost:5000/api/tryon", {
+      const res = await fetch("/api/tryon", {
         method: "POST",
         body: formData,
       });
@@ -507,7 +507,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                     return;
                   }
                   try {
-                    const res = await fetch("http://localhost:5000/api/wardrobe", {
+                    const res = await fetch("/api/wardrobe", {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({

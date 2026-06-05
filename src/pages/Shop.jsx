@@ -149,7 +149,7 @@ export default function Shop({ setPage, setSelectedOutfit, setFromShop }) {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch("/api/products");
       const data = await res.json();
       if (Array.isArray(data)) {
         setProducts(data);
@@ -166,7 +166,7 @@ export default function Shop({ setPage, setSelectedOutfit, setFromShop }) {
   const handleDeleteProduct = async (productId) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
+      const res = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });

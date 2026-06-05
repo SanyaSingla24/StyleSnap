@@ -9,8 +9,7 @@ const router = express.Router()
 // General Endpoint: POST /api/upload (Upload image for Feed/Shop)
 router.post("/upload", uploadDisk.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" })
-  const port = process.env.PORT || 5000
-  const imageUrl = `http://localhost:${port}/uploads/${req.file.filename}`
+  const imageUrl = `/uploads/${req.file.filename}`
   res.json({ imageUrl })
 })
 

@@ -16,7 +16,7 @@ export default function Wardrobe({ setPage }) {
   const fetchWardrobe = async (id) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/wardrobe/${id}`);
+      const res = await fetch(`/api/wardrobe/${id}`);
       const data = await res.json();
       if (Array.isArray(data)) {
         setItems(data);
@@ -33,7 +33,7 @@ export default function Wardrobe({ setPage }) {
   const deleteItem = async (itemId) => {
     if (!window.confirm("Are you sure you want to delete this from your wardrobe?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/wardrobe/${itemId}`, { method: "DELETE" });
+      const res = await fetch(`/api/wardrobe/${itemId}`, { method: "DELETE" });
       if (res.ok) {
         setItems(prev => prev.filter(item => item._id !== itemId));
       } else {

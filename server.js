@@ -43,7 +43,7 @@ app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // Health/Status check endpoint
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
     message: "StyleSnap+ Backend is running!",

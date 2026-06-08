@@ -1,5 +1,5 @@
 import Replicate from "replicate"
-import { Client } from "@gradio/client"
+import { Client, handle_file } from "@gradio/client"
 import sharp from "sharp"
 
 // Initialize Replicate client
@@ -119,11 +119,11 @@ export async function executeTryOn({ userFile, category, description, outfitFile
       const token = tokens[t] || null
       console.log(`Trying space: ${space.id} (${space.type}) with token index ${t}...`)
       try {
-        const humanBlob = new Blob([userBuffer], { type: userMimeType })
+        const humanBlob = handle_file(userBuffer)
         let garmentBlob
 
         if (outfitBuffer) {
-          garmentBlob = new Blob([outfitBuffer], { type: outfitMimeType })
+          garmentBlob = handle_file(outfitBuffer)
         } else {
           let fetchUrl = outfitURI
           if (!fetchUrl.startsWith("http") && !fetchUrl.startsWith("data:")) {
@@ -143,7 +143,7 @@ export async function executeTryOn({ userFile, category, description, outfitFile
             } catch (err) {
               console.warn("Failed to normalize fetched base64 outfit to JPEG:", err.message)
             }
-            garmentBlob = new Blob([buf], { type: "image/jpeg" })
+            garmentBlob = handle_file(buf)
           } else {
             const fetchRes = await fetch(fetchUrl)
             if (!fetchRes.ok) {
@@ -159,7 +159,7 @@ export async function executeTryOn({ userFile, category, description, outfitFile
             } catch (err) {
               console.warn("Failed to normalize fetched URL outfit to JPEG:", err.message)
             }
-            garmentBlob = new Blob([buf], { type: "image/jpeg" })
+            garmentBlob = handle_file(buf)
           }
         }
 

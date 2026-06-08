@@ -2,7 +2,7 @@ export default function HowItWorks() {
   const steps = [
     {
       id: 1,
-      title: "Upload Your Photo",
+      title: "Upload Photo",
       desc: "Take a clear, well-lit photo of your complete outfit"
     },
     {
@@ -12,28 +12,28 @@ export default function HowItWorks() {
     },
     {
       id: 3,
-      title: "Personalized Tips",
-      desc: "Receive styling suggestions and pose recommendations"
+      title: "Stylist Tips",
+      desc: "Receive styling suggestions and pose suggestions"
     }
   ]
 
   return (
-    <div className="bg-yellow-400 pb-10">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+    <div className="w-full pt-4 pb-2">
+      <div className="grid grid-cols-3 gap-3 md:gap-4">
         {steps.map(step => (
           <div
             key={step.id}
-            className="bg-white rounded-2xl p-6 text-center shadow-md"
+            className="bg-white dark:bg-zinc-900/60 rounded-xl p-3 md:p-4 text-center border border-gray-150 dark:border-zinc-800 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-200 hover:-translate-y-1 hover:shadow-sm"
           >
-            <div className="w-10 h-10 bg-black text-yellow-400 rounded-lg flex items-center justify-center mx-auto mb-3 font-bold text-sm">
+            <div className="w-6 h-6 md:w-7 md:h-7 bg-[#FBBF24] text-[#1C1C1C] rounded-full flex items-center justify-center mx-auto mb-2 font-black text-xs md:text-xs">
               {step.id}
             </div>
 
-            <h4 className="text-lg font-semibold mb-1">
+            <h4 className="text-[10px] md:text-xs font-black mb-1 text-gray-900 dark:text-white leading-tight">
               {step.title}
             </h4>
 
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-400 dark:text-gray-500 text-[9px] md:text-[10px] font-bold leading-tight">
               {step.desc}
             </p>
           </div>

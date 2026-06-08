@@ -248,70 +248,65 @@ export default function StyleDNA({ setPage }) {
   return (
     <div className="h-full min-h-[85vh] flex flex-col justify-center items-center py-6 px-4">
       
-      {/* 0: ONBOARDING SCREEN */}
-      {step === 0 && (
-        <div className="max-w-xl text-center bg-white rounded-2xl p-6 border border-gray-200 shadow-xl animate-fade-in">
-          <div className="w-14 h-14 rounded-2xl bg-yellow-300 text-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
+      {/* 0: ONBOARDING SCREEN */}      {step === 0 && (
+        <div className="max-w-sm text-center bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-gray-100 dark:border-zinc-800 shadow-md animate-fade-in">
+          <div className="w-10 h-10 rounded-xl bg-[#FBBF24] text-xl flex items-center justify-center mx-auto mb-3 shadow-sm">
             🧬
           </div>
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-2">
+          <h1 className="text-xl font-black text-gray-900 dark:text-white tracking-tight mb-2">
             Discover Your Style DNA.
           </h1>
-          <p className="text-gray-655 font-semibold text-sm leading-relaxed mb-5">
-            Complete a visual, 3-step styling questionnaire to uncover your personal aesthetic, signature colors, and fit preferences.
-            <br />
-            <span className="text-gray-900 font-extrabold text-xs block mt-2">
-              ✦ Personalizes the AI Stylist's feedback automatically
+          <p className="text-gray-500 dark:text-gray-400 font-semibold text-xs leading-relaxed mb-4">
+            Complete a visual 3-step questionnaire to uncover your personal aesthetic, signature colors, and fit preferences.
+            <span className="text-gray-700 dark:text-gray-300 font-extrabold text-[10px] block mt-1.5">
+              ✶ Personalizes the AI Stylist's feedback automatically
             </span>
           </p>
           <button
             onClick={startQuiz}
-            className="w-full bg-black text-white hover:bg-yellow-400 hover:text-black py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-98 transition-all duration-300"
+            className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-[#FBBF24] hover:text-black py-3 rounded-xl font-bold text-sm shadow-md active:scale-98 transition-all duration-200"
           >
-            Start Styling DNA Quiz ✦
+            Start Style DNA Quiz ✶
           </button>
         </div>
       )}
 
       {/* 1: CHOOSE AESTHETIC SCREEN */}
       {step === 1 && (
-        <div className="w-full max-w-5xl text-center animate-fade-in">
-          <span className="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full uppercase tracking-widest">
+        <div className="w-full max-w-4xl text-center animate-fade-in">
+          <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-zinc-800 px-3 py-1 rounded-full uppercase tracking-widest">
             Step 1 of 3
           </span>
-          <h1 className="text-3xl font-black text-gray-900 mt-3 mb-1">
+          <h1 className="text-xl font-black text-gray-900 dark:text-white mt-2 mb-0.5">
             Which fashion aesthetic represents you?
           </h1>
-          <p className="text-gray-500 mb-8 font-medium">Select your primary style vibe</p>
+          <p className="text-gray-400 dark:text-gray-500 mb-5 text-xs font-medium">Select your primary style vibe</p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {AESTHETICS.map((aes) => (
               <button
                 key={aes.id}
                 onClick={() => handleSelectAesthetic(aes)}
-                className="group text-left bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-black active:scale-98 transition-all duration-300 flex flex-col"
+                className="group text-left bg-white dark:bg-zinc-900 border border-gray-150 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-[#FBBF24] active:scale-98 transition-all duration-200 flex flex-col"
               >
-                <div className="h-56 w-full overflow-hidden relative">
+                <div className="h-32 w-full overflow-hidden relative">
                   <img
                     src={aes.image}
                     alt={aes.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-5">
-                    <span className="text-white text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur px-3 py-1 rounded-full">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                    <span className="text-white text-[9px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur px-2 py-0.5 rounded-full">
                       {aes.name.split("/")[0]}
                     </span>
                   </div>
                 </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="font-extrabold text-gray-900 text-lg mb-2">
+                <div className="p-3 flex-1 flex flex-col">
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-xs mb-1">
                     {aes.name}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                  <p className="text-gray-400 dark:text-gray-500 text-[10px] leading-relaxed">
                     {aes.description}
-                  </p>
-                  <p className="text-xs italic text-gray-400 mt-auto border-t border-gray-100 pt-3">
-                    "{aes.quote}"
                   </p>
                 </div>
               </button>
@@ -322,41 +317,37 @@ export default function StyleDNA({ setPage }) {
 
       {/* 2: CHOOSE PALETTE SCREEN */}
       {step === 2 && (
-        <div className="w-full max-w-3xl text-center animate-fade-in">
-          <span className="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full uppercase tracking-widest">
+        <div className="w-full max-w-xl text-center animate-fade-in">
+          <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-zinc-800 px-3 py-1 rounded-full uppercase tracking-widest">
             Step 2 of 3
           </span>
-          <h1 className="text-3xl font-black text-gray-900 mt-3 mb-1">
+          <h1 className="text-xl font-black text-gray-900 dark:text-white mt-2 mb-0.5">
             Pick your signature color palette
           </h1>
-          <p className="text-gray-500 mb-8 font-medium">Which colors speak to your wardrobe aesthetic?</p>
+          <p className="text-gray-400 dark:text-gray-500 mb-4 text-xs font-medium">Which colors speak to your wardrobe?</p>
 
-          <div className="space-y-4">
+          <div className="space-y-2.5">
             {PALETTES.map((pal) => (
               <button
                 key={pal.id}
                 onClick={() => handleSelectPalette(pal)}
-                className="w-full bg-white border border-gray-200 hover:border-black rounded-3xl p-6 shadow-sm hover:shadow-lg transition duration-300 flex flex-col sm:flex-row items-center justify-between gap-4 text-left active:scale-[0.99]"
+                className="w-full bg-white dark:bg-zinc-900 border border-gray-150 dark:border-zinc-800 hover:border-[#FBBF24] rounded-xl p-3.5 shadow-sm hover:shadow-md transition duration-200 flex items-center justify-between gap-3 text-left active:scale-[0.99]"
               >
                 <div>
-                  <h3 className="font-extrabold text-gray-900 text-lg">
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-xs">
                     {pal.name}
                   </h3>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5">
                     {pal.colors.map(c => c.name).join(" • ")}
                   </p>
                 </div>
-                <div className="flex gap-2.5">
+                <div className="flex gap-1.5 flex-shrink-0">
                   {pal.colors.map((color, idx) => (
-                    <div key={idx} className="flex flex-col items-center">
-                      <div
-                        className="w-12 h-12 rounded-full border border-gray-300 shadow-sm"
-                        style={{ backgroundColor: color.hex }}
-                      />
-                      <span className="text-[10px] text-gray-500 font-semibold mt-1">
-                        {color.name}
-                      </span>
-                    </div>
+                    <div
+                      key={idx}
+                      className="w-8 h-8 rounded-full border border-gray-200 dark:border-zinc-700 shadow-sm"
+                      style={{ backgroundColor: color.hex }}
+                    />
                   ))}
                 </div>
               </button>
@@ -365,39 +356,39 @@ export default function StyleDNA({ setPage }) {
           
           <button
             onClick={() => setStep(1)}
-            className="mt-8 text-sm font-bold text-gray-500 hover:text-black transition"
+            className="mt-4 text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition"
           >
-            ← Back to Aesthetics
+            ← Back
           </button>
         </div>
       )}
 
       {/* 3: CHOOSE FIT SCREEN */}
       {step === 3 && (
-        <div className="w-full max-w-2xl text-center animate-fade-in">
-          <span className="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full uppercase tracking-widest">
+        <div className="w-full max-w-xl text-center animate-fade-in">
+          <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-zinc-800 px-3 py-1 rounded-full uppercase tracking-widest">
             Step 3 of 3
           </span>
-          <h1 className="text-3xl font-black text-gray-900 mt-3 mb-1">
+          <h1 className="text-xl font-black text-gray-900 dark:text-white mt-2 mb-0.5">
             What is your preferred silhouette?
           </h1>
-          <p className="text-gray-500 mb-8 font-medium">Select how you like your clothing to fit your frame</p>
+          <p className="text-gray-400 dark:text-gray-500 mb-4 text-xs font-medium">Select how you like your clothing to fit</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             {FITS.map((fit) => (
               <button
                 key={fit.id}
                 onClick={() => handleSelectFit(fit)}
-                className="bg-white border border-gray-200 hover:border-black rounded-3xl p-6 shadow-sm hover:shadow-lg text-left transition duration-300 active:scale-98 flex flex-col justify-between"
+                className="bg-white dark:bg-zinc-900 border border-gray-150 dark:border-zinc-800 hover:border-[#FBBF24] rounded-xl p-4 shadow-sm hover:shadow-md text-left transition duration-200 active:scale-98 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-yellow-100 text-yellow-800 font-bold flex items-center justify-center text-sm mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-yellow-50 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-400 font-bold flex items-center justify-center text-xs mb-3">
                     {fit.name[0]}
                   </div>
-                  <h3 className="font-extrabold text-gray-900 text-lg mb-2">
+                  <h3 className="font-extrabold text-gray-900 dark:text-white text-xs mb-1">
                     {fit.name}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
+                  <p className="text-gray-400 dark:text-gray-500 text-[10px] leading-relaxed">
                     {fit.description}
                   </p>
                 </div>
@@ -407,21 +398,21 @@ export default function StyleDNA({ setPage }) {
 
           <button
             onClick={() => setStep(2)}
-            className="mt-8 text-sm font-bold text-gray-500 hover:text-black transition"
+            className="mt-4 text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition"
           >
-            ← Back to Color Palette
+            ← Back
           </button>
         </div>
       )}
 
       {/* 4: LOADING SCREEN */}
       {step === 4 && (
-        <div className="max-w-md text-center py-10 animate-pulse">
-          <div className="w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto mb-6" />
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-2">
+        <div className="max-w-sm text-center py-8 animate-pulse">
+          <div className="w-10 h-10 border-3 border-[#FBBF24] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <h2 className="text-sm font-extrabold text-gray-900 dark:text-white mb-1">
             Sequencing Style DNA...
           </h2>
-          <p className="text-gray-500 font-medium text-sm">
+          <p className="text-gray-400 dark:text-gray-500 font-medium text-xs">
             {loadingText}
           </p>
         </div>

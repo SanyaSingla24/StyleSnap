@@ -26,85 +26,79 @@ export default function AboutUs() {
   ]
 
   return (
-    <div className="h-full px-6 py-4 animate-fade-in max-w-4xl mx-auto">
+    <div className="h-full animate-fade-in max-w-2xl mx-auto">
       {/* HERO SECTION */}
-      <div className="mb-6 text-center">
-        <span className="text-[10px] font-bold text-gray-500 bg-white/70 px-3 py-1 rounded-full uppercase tracking-widest border border-gray-200 shadow-sm">
+      <div className="mb-5 text-center">
+        <span className="text-[10px] font-bold text-gray-500 bg-white/70 dark:bg-zinc-900/70 px-3 py-1 rounded-full uppercase tracking-widest border border-gray-200 dark:border-zinc-700 shadow-sm">
           Our Vision
         </span>
-        <h1 className="text-3xl font-black text-gray-900 tracking-tight mt-2 mb-2">
+        <h1 className="text-xl font-black text-gray-900 dark:text-white tracking-tight mt-2 mb-1">
           StyleSnap+ Story
         </h1>
-        <p className="text-sm text-gray-655 max-w-xl mx-auto leading-relaxed font-medium">
+        <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md mx-auto leading-relaxed font-medium">
           Bridging advanced deep-learning vision pipelines with personal fashion self-expression.
         </p>
       </div>
 
       {/* THE VISION GRID */}
-      <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-xl mb-10 text-left">
-        <h2 className="text-2xl font-extrabold text-gray-900 mb-4">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-5 border border-gray-150 dark:border-zinc-800 shadow-md mb-5 text-left">
+        <h2 className="text-base font-extrabold text-gray-900 dark:text-white mb-3">
           Reimagining the Digital Wardrobe
         </h2>
-        <p className="text-gray-600 leading-relaxed mb-8 text-sm md:text-base font-medium">
-          StyleSnap+ was born out of a simple question: *What if you could try on any item on the internet instantly, without leaving your house?* By replacing flat photo grids with interactive visual hotspots and localized virtual trial rooms, we make high-fashion styling open, social, and accessible to everyone.
+        <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-5 text-xs font-medium">
+          StyleSnap+ was born from a simple question: What if you could try on any item instantly? By replacing flat photo grids with interactive visual hotspots and virtual trial rooms, we make high-fashion styling open, social, and accessible.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-gray-100">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-100 dark:border-zinc-800">
           {pillars.map((p, idx) => (
             <div key={idx} className="flex flex-col">
-              <div className="w-10 h-10 rounded-xl bg-yellow-100 text-yellow-800 text-lg flex items-center justify-center mb-3.5 shadow-inner">
+              <div className="w-8 h-8 rounded-xl bg-yellow-50 dark:bg-yellow-950/40 text-yellow-700 dark:text-yellow-400 text-base flex items-center justify-center mb-2.5 shadow-sm">
                 {p.emoji}
               </div>
-              <h3 className="font-extrabold text-gray-900 text-base mb-1.5">{p.title}</h3>
-              <p className="text-gray-500 text-xs leading-relaxed">{p.desc}</p>
+              <h3 className="font-extrabold text-gray-900 dark:text-white text-xs mb-1">{p.title}</h3>
+              <p className="text-gray-400 dark:text-gray-500 text-[10px] leading-relaxed">{p.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* STATS SECTION */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-3 gap-3 mb-5">
         {stats.map((s, idx) => (
-          <div key={idx} className="bg-black text-white rounded-2xl p-6 text-center shadow-lg">
-            <div className="text-2xl font-black text-yellow-300 mb-1">{s.value}</div>
-            <div className="text-xs text-gray-400 font-bold uppercase tracking-wider">{s.label}</div>
+          <div key={idx} className="bg-black dark:bg-zinc-950 text-white rounded-xl p-4 text-center shadow-md">
+            <div className="text-lg font-black text-[#FBBF24] mb-0.5">{s.value}</div>
+            <div className="text-[9px] text-gray-400 font-bold uppercase tracking-wider">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* MEET THE FOUNDER SECTION */}
-      <div className="bg-white rounded-3xl p-8 border border-gray-200 shadow-xl flex flex-col md:flex-row gap-8 items-center text-left">
-        
-        {/* INITIALS AVATAR MONOGRAM (NO PHOTO) */}
-        <div className="w-36 h-36 rounded-full bg-gradient-to-tr from-yellow-400 to-orange-500 flex items-center justify-center text-white text-4xl font-black shadow-lg flex-shrink-0 select-none border-4 border-yellow-300">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-5 border border-gray-150 dark:border-zinc-800 shadow-md flex flex-col sm:flex-row gap-5 items-center text-left">
+        {/* INITIALS AVATAR */}
+        <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-yellow-400 to-orange-500 flex items-center justify-center text-white text-xl font-black shadow-md flex-shrink-0 select-none border-2 border-yellow-300">
           SS
         </div>
 
         {/* PROFILE BIO */}
         <div className="flex-1">
-          <span className="text-[10px] bg-yellow-100 text-yellow-800 border border-yellow-300 font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+          <span className="text-[9px] bg-yellow-100 dark:bg-yellow-950/40 text-yellow-800 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-900 font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
             Chief Product Architect
           </span>
-          <h2 className="text-3xl font-black text-gray-900 mt-3.5 mb-1 tracking-tight">
+          <h2 className="text-base font-black text-gray-900 dark:text-white mt-2 mb-0.5 tracking-tight">
             Sanya Singla
           </h2>
-          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">
             Founder, StyleSnap+
           </p>
           
-          <div className="text-gray-600 text-xs md:text-sm leading-relaxed space-y-4 font-medium">
-            <p>
-              "Fashion is the ultimate form of self-expression, but finding your unique style shouldn't require a Hollywood budget or endless hours of scrolling. We built StyleSnap+ to merge advanced deep-learning try-on neural networks with human taste DNA."
-            </p>
-            <p>
-              "By creating an environment where users can sequence their style preferences, interact with influencer hotspots, and instantly swap garments onto their own photos, we are building the future of the decentralized digital closet."
-            </p>
+          <div className="text-gray-500 dark:text-gray-400 text-[10px] leading-relaxed space-y-2 font-medium">
+            <p>"Fashion is the ultimate form of self-expression, but finding your unique style shouldn't require a Hollywood budget. We built StyleSnap+ to merge advanced deep-learning try-on neural networks with human taste DNA."</p>
           </div>
           
           {/* Quote sign off */}
-          <div className="mt-6 border-t border-gray-100 pt-4 flex justify-between items-center text-xs text-gray-400">
+          <div className="mt-3 border-t border-gray-100 dark:border-zinc-800 pt-2.5 flex justify-between items-center text-[10px] text-gray-400">
             <span>Delhi, India</span>
-            <span className="font-serif italic font-bold text-gray-800 text-sm">Sanya Singla</span>
+            <span className="font-serif italic font-bold text-gray-700 dark:text-gray-300 text-xs">Sanya Singla</span>
           </div>
         </div>
 

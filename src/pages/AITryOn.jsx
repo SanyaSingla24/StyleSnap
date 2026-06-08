@@ -1,5 +1,6 @@
 // src/pages/AITryOn.jsx
 import { useRef, useState, useEffect } from "react"
+import { Loader2 } from "lucide-react"
 import StudioSwitch from "../components/StudioSwitch"
 import WebcamCapture from "../components/WebcamCapture"
 import AIDemoModal from "../components/AIDemoModal"
@@ -130,6 +131,15 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
     link.click()
   }
 
+  const sampleOutfits = [
+    { name: "Casual Linen", image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=150" },
+    { name: "Denim & Knit", image: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=150" },
+    { name: "Warm Trench", image: "https://images.unsplash.com/photo-1475180098004-ca77a66827be?w=150" },
+    { name: "Vibrant Jacket", image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=150" },
+    { name: "Summer Dress", image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=150" },
+    { name: "Luxe Outfit", image: "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=150" }
+  ]
+
   return (
     <section ref={sectionRef} className="h-full relative overflow-y-auto w-full custom-scrollbar animate-fade-in pb-12">
       {showCamera && (
@@ -155,174 +165,211 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
       `}</style>
 
       {/* SWITCH BUTTONS */}
-      <div className="max-w-6xl mx-auto mb-8">
+      <div className="max-w-3xl mx-auto mb-4">
         <StudioSwitch page={page} setPage={setPage} />
       </div>
 
-      {/* MAIN CARD: Sleek Glassmorphism */}
-      <div className="backdrop-blur-md bg-white/80 border border-gray-100 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-8 md:p-10 max-w-5xl mx-auto transition-all duration-300">
-        <div className="flex justify-between items-start border-b border-gray-100 pb-6">
-          <div>
-            <h2 className="text-3xl font-extrabold tracking-tight text-black mb-1.5">AI Virtual Fitting Room</h2>
-            <p className="text-sm text-gray-500 font-medium">
-              Upload your photo and target outfit. Our AI will seamlessly dress you in it.
+      {/* 3-STEP PROGRESS INDICATOR */}
+      <div className="max-w-3xl mx-auto mb-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-xl px-4 py-2.5 flex justify-between items-center text-[10px] sm:text-xs font-bold text-gray-400 dark:text-gray-500 shadow-sm transition-colors">
+        <div className="flex items-center gap-1.5 text-gray-800 dark:text-gray-200">
+          <span className="w-5 h-5 rounded-full bg-[#FBBF24] text-[#1C1C1C] flex items-center justify-center font-black">1</span>
+          <span>Upload yourself</span>
+        </div>
+        <span className="text-gray-300 dark:text-gray-700">→</span>
+        <div className={`flex items-center gap-1.5 ${userFile ? "text-gray-800 dark:text-gray-200" : ""}`}>
+          <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black ${userFile ? "bg-[#FBBF24] text-[#1C1C1C]" : "bg-gray-150 dark:bg-zinc-800 text-gray-500"}`}>2</span>
+          <span>Pick an outfit</span>
+        </div>
+        <span className="text-gray-300 dark:text-gray-700">→</span>
+        <div className={`flex items-center gap-1.5 ${(userFile && (outfitFile || outfitPhoto)) ? "text-gray-800 dark:text-gray-200" : ""}`}>
+          <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black ${(userFile && (outfitFile || outfitPhoto)) ? "bg-[#FBBF24] text-[#1C1C1C]" : "bg-gray-150 dark:bg-zinc-800 text-gray-500"}`}>3</span>
+          <span>Generate look</span>
+        </div>
+      </div>
+
+      {/* MAIN CARD */}
+      <div className="bg-white dark:bg-zinc-900/60 border border-gray-150 dark:border-zinc-800 rounded-2xl p-4 md:p-5 max-w-3xl mx-auto transition-colors duration-200 shadow-sm">
+        <div className="flex justify-between items-start border-b border-gray-150 dark:border-zinc-800 pb-3">
+          <div className="text-left">
+            <h2 className="text-lg font-black tracking-tight text-gray-900 dark:text-white mb-0.5">AI Virtual Fitting Room</h2>
+            <p className="text-xs text-gray-400 dark:text-gray-500 font-medium">
+              Upload your photo and target outfit. Our AI will dress you in it virtually.
             </p>
           </div>
 
           {(generatedPreview || useInteractiveFallback) && (
             <button
               onClick={resetAll}
-              className="w-9 h-9 rounded-full bg-gray-50 hover:bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 hover:text-black transition-all active:scale-90"
+              className="w-7 h-7 rounded-full bg-gray-50 dark:bg-zinc-850 hover:bg-gray-100 dark:hover:bg-zinc-800 border border-gray-200 dark:border-zinc-700 flex items-center justify-center text-gray-400 hover:text-black dark:hover:text-white transition-all active:scale-90"
               title="Reset workspace"
             >
               ✕
             </button>
           )}
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
           
           {/* LEFT COLUMN: Input Dropzones */}
-          <div className="flex flex-col gap-6">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400">Upload Files</h3>
-
-            {/* USER PHOTO DROPZONE */}
-            <div className="flex flex-col">
-              <div className="flex justify-between items-center mb-2">
-                <p className="text-sm font-semibold text-gray-700 flex items-center gap-1.5">
-                  <span className="text-base">👤</span> Your full-body photo
-                </p>
-                <button 
-                  onClick={() => setShowCamera(true)}
-                  className="text-[10px] font-bold text-gray-400 hover:text-black uppercase tracking-wider bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded transition-colors"
-                >
-                  Take Photo 📸
-                </button>
-              </div>
-              <label className="group relative border-2 border-dashed border-gray-200 hover:border-black/30 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all bg-gray-50/50 hover:bg-gray-50 min-h-[160px] overflow-hidden">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files[0]
-                    if (file) {
-                      setUserPhoto(URL.createObjectURL(file))
-                      setUserFile(file)
-                    }
+          <div className="flex flex-col gap-3 text-left">
+            
+            {/* SIDE-BY-SIDE SIDE CARD UPLOAD ZONES (NO BOX INSIDE A BOX, VISIBLE AT SAME TIME) */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Step 1 Card (Dropzone) */}
+              <div className="flex flex-col">
+                <div className="flex justify-between items-center mb-1.5">
+                  <span className="text-[10px] font-black text-gray-500 uppercase tracking-wider">Step 1 — You ✨</span>
+                  <button 
+                    type="button"
+                    onClick={() => setShowCamera(true)}
+                    className="text-[8px] font-black text-gray-500 hover:text-black dark:hover:text-white uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-250 dark:hover:bg-zinc-700 px-2 py-0.5 rounded transition-colors"
+                  >
+                    Camera 📸
+                  </button>
+                </div>
+                <label 
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M12 2a1 1 0 0 0-1 1c0 .26.14.5.34.66L4.94 6.8c-.3.26-.5.64-.5 1.06 0 .83.67 1.5 1.5 1.5h12.12c.83 0 1.5-.67 1.5-1.5 0-.42-.2-.8-.5-1.06L16.6 4.66c.2-.16.34-.4.34-.66a1 1 0 0 0-1-1zm-4 5v2.5' fill='none' stroke='%23000000' stroke-opacity='0.04' stroke-width='1.2'/%3E%3C/svg%3E")`
                   }}
-                  className="hidden"
-                />
-                {userPhoto ? (
-                  <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-white group-hover:opacity-90 transition-opacity">
-                    <img src={userPhoto} alt="you" className="w-full h-full object-contain p-1" />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white text-xs font-semibold">
-                      Change Photo 📷
+                  className="aspect-[3/4] bg-gray-50 dark:bg-zinc-950 border-2 border-dashed border-gray-250 dark:border-zinc-800 rounded-xl flex flex-col items-center justify-center relative overflow-hidden cursor-pointer hover:border-[#FBBF24] dark:hover:border-[#FBBF24] hover:bg-[#FFFBEB] dark:hover:bg-yellow-950/5 transition-all p-2 shadow-sm"
+                >
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files[0]
+                      if (file) {
+                        setUserPhoto(URL.createObjectURL(file))
+                        setUserFile(file)
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  {userPhoto ? (
+                    <img src={userPhoto} alt="you" className="w-full h-full object-cover rounded-lg" />
+                  ) : (
+                    <div className="flex flex-col items-center gap-1.5 text-center p-2 text-gray-400 dark:text-gray-500">
+                      <span className="text-2xl">👤</span>
+                      <span className="text-[10px] font-bold leading-tight">Upload Yourself</span>
                     </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center gap-2 text-gray-400 text-center">
-                    <div className="text-3xl group-hover:scale-110 transition-transform">📸</div>
-                    <span className="text-xs font-semibold text-gray-500">Click to upload body photo</span>
-                    <span className="text-[10px] text-gray-400">JPEG, PNG, AVIF up to 50MB</span>
-                  </div>
-                )}
-              </label>
+                  )}
+                </label>
+              </div>
+
+              {/* Step 2 Card (Dropzone) */}
+              <div className="flex flex-col">
+                <div className="mb-1.5 text-left">
+                  <span className="text-[10px] font-black text-gray-500 uppercase tracking-wider">Step 2 — Outfit 👗</span>
+                </div>
+                <label 
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cpath d='M12 2a1 1 0 0 0-1 1c0 .26.14.5.34.66L4.94 6.8c-.3.26-.5.64-.5 1.06 0 .83.67 1.5 1.5 1.5h12.12c.83 0 1.5-.67 1.5-1.5 0-.42-.2-.8-.5-1.06L16.6 4.66c.2-.16.34-.4.34-.66a1 1 0 0 0-1-1zm-4 5v2.5' fill='none' stroke='%23000000' stroke-opacity='0.04' stroke-width='1.2'/%3E%3C/svg%3E")`
+                  }}
+                  className="aspect-[3/4] bg-gray-50 dark:bg-zinc-950 border-2 border-dashed border-gray-250 dark:border-zinc-800 rounded-xl flex flex-col items-center justify-center relative overflow-hidden cursor-pointer hover:border-[#FBBF24] dark:hover:border-[#FBBF24] hover:bg-[#FFFBEB] dark:hover:bg-yellow-950/5 transition-all p-2 shadow-sm"
+                >
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files[0]
+                      if (file) {
+                        setOutfitPhoto(URL.createObjectURL(file))
+                        setOutfitFile(file)
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  {outfitPhoto ? (
+                    <img src={outfitPhoto} alt="outfit" className="w-full h-full object-cover rounded-lg" />
+                  ) : (
+                    <div className="flex flex-col items-center gap-1.5 text-center p-2 text-gray-400 dark:text-gray-500">
+                      <span className="text-2xl">👗</span>
+                      <span className="text-[10px] font-bold leading-tight">Upload Outfit</span>
+                    </div>
+                  )}
+                </label>
+              </div>
             </div>
 
-            {/* OUTFIT PHOTO DROPZONE */}
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-1.5">
-                <span className="text-base">👗</span> Target outfit photo
-              </p>
-              <label className="group relative border-2 border-dashed border-gray-200 hover:border-black/30 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all bg-gray-50/50 hover:bg-gray-50 min-h-[160px] overflow-hidden">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files[0]
-                    if (file) {
-                      setOutfitPhoto(URL.createObjectURL(file))
-                      setOutfitFile(file)
-                    }
-                  }}
-                  className="hidden"
-                />
-                {outfitPhoto ? (
-                  <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-white group-hover:opacity-90 transition-opacity">
-                    <img src={outfitPhoto} alt="outfit" className="w-full h-full object-contain p-1" />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white text-xs font-semibold">
-                      Change Photo 📷
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center gap-2 text-gray-400 text-center">
-                    <div className="text-3xl group-hover:scale-110 transition-transform">👕</div>
-                    <span className="text-xs font-semibold text-gray-500">Click to upload outfit photo</span>
-                    <span className="text-[10px] text-gray-400">JPEG, PNG, AVIF up to 50MB</span>
-                  </div>
-                )}
-              </label>
+            {/* SAMPLE OUTFIT GALLERY */}
+            <div className="mt-2 text-left">
+              <h4 className="text-[10px] font-black uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">Or choose a sample outfit:</h4>
+              <div className="grid grid-cols-6 gap-2">
+                {sampleOutfits.map((outfit, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setOutfitPhoto(outfit.image);
+                      setOutfitFile(null);
+                    }}
+                    className="aspect-square rounded-xl overflow-hidden border border-gray-200 dark:border-zinc-800 hover:border-[#FBBF24] transition-all hover:scale-105 active:scale-95 shadow-sm animate-fade-in"
+                    title={outfit.name}
+                  >
+                    <img src={outfit.image} alt={outfit.name} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* CATEGORY SELECTOR */}
             <div className="flex flex-col">
-              <label className="text-sm font-semibold text-gray-700 mb-1.5 flex items-center gap-1.5">
-                <span>🏷️</span> Garment Category
+              <label className="text-[10px] font-black uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">
+                Garment Category
               </label>
               <select
                 value={tryOnCategory}
                 onChange={(e) => setTryOnCategory(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 text-gray-800 rounded-2xl px-4 py-3 font-semibold text-sm focus:outline-none focus:border-black transition-all appearance-none cursor-pointer"
+                className="w-full bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 text-gray-800 dark:text-gray-200 rounded-xl px-4 py-3 font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#FBBF24] transition-all appearance-none cursor-pointer"
                 style={{
-                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='gray' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "right 16px center",
-                  backgroundSize: "16px"
+                  backgroundSize: "14px"
                 }}
               >
-                <option value="upper_body">👕 Top (Shirts, T-shirts, Jackets)</option>
-                <option value="lower_body">👖 Bottom (Pants, Jeans, Skirts)</option>
-                <option value="dresses">👗 Full Body (Suits, Dresses, Kurta Gowns)</option>
+                <option value="upper_body">👕 Top (Shirts, Jackets)</option>
+                <option value="lower_body">👖 Bottom (Pants, Skirts)</option>
+                <option value="dresses">👗 Full Body (Dresses, Suits)</option>
               </select>
             </div>
 
+            {/* ACTION BUTTON (BRAND YELLOW PILL) */}
             <button
               onClick={generateTryOn}
               disabled={!userFile || (!outfitFile && !outfitPhoto) || loading}
-              className="mt-4 w-full bg-black text-white hover:bg-neutral-800 py-3.5 rounded-2xl font-bold tracking-wide shadow-lg hover:shadow-xl active:scale-[0.99] disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center justify-center gap-2 text-sm"
+              className="mt-4 w-full bg-[#FBBF24] text-[#1C1C1C] hover:bg-yellow-500 py-3.5 rounded-full font-black uppercase tracking-wider shadow-lg hover:shadow-xl active:scale-97 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 text-xs"
             >
               {loading ? (
                 <>
-                  <span className="animate-spin text-lg">⏳</span>
-                  <span>Generating Try-On...</span>
+                  <Loader2 className="animate-spin w-4 h-4" />
+                  <span>Dressing up...</span>
                 </>
               ) : (
                 <>
                   <span>✨</span>
-                  <span>Generate Try-On</span>
+                  <span>Generate My Look</span>
                 </>
               )}
             </button>
           </div>
 
           {/* RIGHT COLUMN: Results & Fallbacks */}
-          <div className="flex flex-col border border-gray-100 rounded-3xl p-6 bg-gray-50/30 text-center relative justify-between min-h-[420px]">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4 self-start">Workspace Preview</h3>
+          <div className="flex flex-col border border-gray-150 dark:border-zinc-800 rounded-3xl p-6 bg-gray-50/20 dark:bg-zinc-900/10 text-center relative justify-between min-h-[420px]">
+            <h3 className="text-[10px] font-black uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-4 self-start">Workspace Preview</h3>
 
-            {/* SCANNING LOADER STATE */}
+            {/* SCANNING LOADER STATE (SHIMMER + SCANNER) */}
             {loading ? (
-              <div className="flex flex-col items-center justify-center p-8 text-center min-h-[320px] relative w-full bg-white rounded-2xl border border-gray-100 shadow-sm flex-1">
+              <div className="flex flex-col items-center justify-center p-8 text-center min-h-[320px] relative w-full bg-white dark:bg-zinc-950 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm flex-1 animate-pulse">
                 {/* Laser Scanning Line */}
-                <div className="absolute inset-x-0 h-[2px] bg-amber-500/80 shadow-[0_0_8px_rgba(245,158,11,0.8)] scan-line pointer-events-none" />
+                <div className="absolute inset-x-0 h-[2px] bg-amber-500/85 shadow-[0_0_8px_rgba(245,158,11,0.8)] scan-line pointer-events-none" />
 
-                {/* Animated Pulsing Hanger */}
-                <div className="w-20 h-20 rounded-full bg-amber-50 flex items-center justify-center mb-6 relative animate-pulse shadow-inner">
+                {/* Animated Pulsing Icon */}
+                <div className="w-20 h-20 rounded-full bg-yellow-50 dark:bg-yellow-950/20 flex items-center justify-center mb-6 relative shadow-inner">
                   <span className="text-4xl animate-bounce">👗</span>
-                  <div className="absolute inset-0 rounded-full border-2 border-dashed border-amber-500/40 animate-[spin_8s_linear_infinite]" />
+                  <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#FBBF24]/60 animate-[spin_8s_linear_infinite]" />
                 </div>
 
-                <h4 className="font-bold text-black mb-1.5 text-base">Fitting Your Outfit</h4>
-                <p className="text-xs text-amber-600 font-semibold tracking-wide uppercase transition-all duration-300">
+                <h4 className="font-black text-gray-800 dark:text-white mb-1.5 text-base">Fitting Your Outfit</h4>
+                <p className="text-xs text-amber-500 dark:text-amber-400 font-bold tracking-wide uppercase transition-all duration-350">
                   {loadingMessages[loadingStep]}
                 </p>
 
@@ -331,8 +378,8 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                   {loadingMessages.map((_, idx) => (
                     <span 
                       key={idx} 
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        idx === loadingStep ? "bg-amber-500 scale-125 shadow-sm" : "bg-gray-200"
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        idx === loadingStep ? "bg-[#FBBF24] scale-125 shadow-sm" : "bg-gray-200 dark:bg-zinc-800"
                       }`}
                     />
                   ))}
@@ -342,7 +389,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
               /* INTERACTIVE FITTING ROOM WORKSPACE */
               <div className="flex flex-col flex-1">
                 <div 
-                  className="relative w-full h-[320px] overflow-hidden flex items-center justify-center select-none bg-white rounded-2xl border border-gray-100 shadow-sm"
+                  className="relative w-full h-[320px] overflow-hidden flex items-center justify-center select-none bg-white dark:bg-zinc-950 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm"
                   style={{ touchAction: 'none' }}
                 >
                   {/* Status Indicator */}
@@ -400,10 +447,10 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                 </div>
 
                 {/* Slider controls for Interactive Fallback */}
-                <div className="mt-4 px-4 py-3 bg-white rounded-2xl border border-gray-100 flex flex-col gap-2 shadow-sm text-left">
+                <div className="mt-4 px-4 py-3 bg-white dark:bg-zinc-950 rounded-2xl border border-gray-150 dark:border-zinc-800 flex flex-col gap-2 shadow-sm text-left">
                   <div className="flex justify-between items-center text-xs font-bold text-gray-500">
                     <span>📐 Drag garment or adjust size:</span>
-                    <span className="text-black font-semibold">{garmentSize}%</span>
+                    <span className="text-black dark:text-white font-black">{garmentSize}%</span>
                   </div>
                   <input 
                     type="range" 
@@ -411,12 +458,12 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                     max="150" 
                     value={garmentSize} 
                     onChange={(e) => setGarmentSize(Number(e.target.value))}
-                    className="w-full h-1 bg-gray-150 rounded-lg appearance-none cursor-pointer accent-black"
+                    className="w-full h-1 bg-gray-150 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#FBBF24]"
                   />
                   
                   <div className="flex justify-between items-center text-xs font-bold text-gray-500 mt-2">
                     <span>✂️ Trim Face/Neck:</span>
-                    <span className="text-black font-semibold">{garmentTrimTop}%</span>
+                    <span className="text-black dark:text-white font-black">{garmentTrimTop}%</span>
                   </div>
                   <input 
                     type="range" 
@@ -424,7 +471,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                     max="50" 
                     value={garmentTrimTop} 
                     onChange={(e) => setGarmentTrimTop(Number(e.target.value))}
-                    className="w-full h-1 bg-gray-150 rounded-lg appearance-none cursor-pointer accent-black"
+                    className="w-full h-1 bg-gray-150 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#FBBF24]"
                   />
 
                   <button 
@@ -433,7 +480,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                       setGarmentSize(55)
                       setGarmentTrimTop(0)
                     }}
-                    className="text-[10px] text-gray-400 hover:text-black font-black uppercase tracking-wider mt-1 self-end transition-colors"
+                    className="text-[10px] text-gray-400 hover:text-black dark:hover:text-white font-black uppercase tracking-wider mt-1 self-end transition-colors"
                   >
                     Reset Position 🔄
                   </button>
@@ -441,16 +488,20 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
               </div>
             ) : generatedPreview ? (
               /* RESULT VIEW */
-              <div className="bg-white rounded-2xl flex items-center justify-center overflow-hidden border border-gray-100 shadow-sm flex-1 p-2">
+              <div className="bg-white dark:bg-zinc-950 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-100 dark:border-zinc-800 shadow-sm flex-1 p-2">
                 <img src={generatedPreview} alt="result" className="w-full h-auto max-h-[300px] object-contain rounded-xl" />
               </div>
             ) : (
-              /* EMPTY DEFAULT STATE */
-              <div className="bg-white rounded-2xl flex flex-col items-center justify-center text-gray-400 p-8 border border-gray-100 shadow-inner flex-1 min-h-[280px]">
-                <span className="text-5xl mb-3 animate-[pulse_2s_infinite]">👚</span>
-                <h4 className="text-black font-bold text-sm mb-1">No Outfit Generated Yet</h4>
-                <p className="text-xs text-gray-400 max-w-[240px] leading-relaxed font-medium">
-                  Upload your photos on the left and tap generate to see your virtual styling result.
+              /* ELEGANT MODEL SILHOUETTE WORKSPACE PLACEHOLDER */
+              <div className="bg-white dark:bg-zinc-950/40 rounded-2xl flex flex-col items-center justify-center text-gray-400 dark:text-zinc-600 p-8 border border-gray-150 dark:border-zinc-800 shadow-inner flex-1 min-h-[280px]">
+                <img 
+                  src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=300" 
+                  alt="Fashion model silhouette" 
+                  className="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-full mb-4 border border-gray-200 dark:border-zinc-800 shadow-sm"
+                />
+                <h4 className="text-gray-800 dark:text-gray-200 font-black text-sm mb-1">Your Styled Look Will Appear Here</h4>
+                <p className="text-[11px] text-gray-450 dark:text-gray-500 max-w-[200px] leading-relaxed font-semibold">
+                  Select your photos on the left and tap the generate button below to dress your virtual model.
                 </p>
               </div>
             )}
@@ -459,7 +510,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
               <div className="flex gap-2 mt-4">
                 <button
                   onClick={downloadImage}
-                  className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-3 rounded-2xl font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+                  className="flex-1 bg-[#FBBF24] hover:bg-yellow-500 text-black py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
                 >
                   <span>⬇️</span> Download
                 </button>
@@ -490,7 +541,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                       }
                     }
                   }}
-                  className="flex-1 bg-black text-white hover:bg-gray-800 py-3 rounded-2xl font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+                  className="flex-1 bg-black text-white dark:bg-zinc-800 hover:bg-neutral-800 dark:hover:bg-zinc-700 py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
                 >
                   <span>🚀</span> Share
                 </button>
@@ -523,7 +574,7 @@ export default function AITryOn({ page, setPage, selectedOutfit, fromShop }) {
                     alert("❌ Could not connect to database.");
                   }
                 }}
-                className="mt-2 w-full bg-blue-500 text-white hover:bg-blue-600 py-3 rounded-2xl font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+                className="mt-2 w-full bg-blue-500 text-white hover:bg-blue-600 py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
               >
                 <span>💾</span> Save to Wardrobe
               </button>

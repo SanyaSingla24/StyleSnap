@@ -397,18 +397,18 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
   };
 
   return (
-    <div className="h-full px-4 sm:px-8 py-4 animate-fade-in max-w-2xl mx-auto">
+    <div className="h-full animate-fade-in max-w-lg mx-auto">
       {/* HEADER */}
-      <div className="mb-6 text-center relative">
-        <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-1">
+      <div className="mb-4 text-center relative">
+        <h1 className="text-xl font-black text-gray-900 dark:text-white tracking-tight mb-0.5">
           The Feed
         </h1>
-        <p className="text-sm text-gray-655 mb-4">
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
           Get inspired by influencers and community styling.
         </p>
         <button 
           onClick={() => setShowUploadModal(true)}
-          className="bg-black text-white px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-gray-800 transition-colors shadow-lg"
+          className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full font-bold uppercase tracking-wider text-[10px] hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors shadow-md"
         >
           📸 Upload Yours
         </button>
@@ -560,64 +560,64 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
       )}
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <Loader2 className="w-12 h-12 animate-spin text-black" />
+        <div className="flex justify-center items-center h-48">
+          <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
         </div>
       ) : (posts.length > 0 ? posts : mockPosts).length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
-          <span className="text-6xl mb-4 block">📸</span>
-          <h3 className="text-2xl font-bold text-black">No Posts Yet</h3>
-          <p className="text-gray-500 mt-2">Be the first to share a look!</p>
+        <div className="text-center py-12 bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm">
+          <span className="text-4xl mb-3 block">📸</span>
+          <h3 className="text-sm font-bold text-black dark:text-white">No Posts Yet</h3>
+          <p className="text-gray-400 dark:text-gray-500 mt-1 text-xs">Be the first to share a look!</p>
         </div>
       ) : (
-        <div className="space-y-8 pb-12">
+        <div className="space-y-5 pb-10">
           {(posts.length > 0 ? posts : (localMockPosts || mockPosts)).map((post) => (
-            <div key={post._id} className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col group">
+            <div key={post._id} className="bg-white dark:bg-zinc-900 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden flex flex-col group">
               
               {/* FEED ITEM HEADER */}
-              <div className="p-5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm">
+              <div className="px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
                     {post.influencerId?.username?.charAt(0).toUpperCase() || "U"}
                   </div>
                   <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-bold text-sm text-gray-900">@{post.influencerId?.username}</h4>
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="font-bold text-xs text-gray-900 dark:text-white">@{post.influencerId?.username}</h4>
                       {post.influencerId?.role === 'influencer' && (
-                        <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-                          <span>👑</span> Spotlight
+                        <span className="bg-yellow-100 dark:bg-yellow-950/40 text-yellow-800 dark:text-yellow-300 text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                          👑 Spotlight
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-[10px] text-gray-400 dark:text-gray-500">
                       {new Date(post.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
                 
-                {/* Delete button if the user is the owner of the post */}
+                {/* Delete button */}
                 {(post.influencerId?._id === currentUserId || 
                   post.influencerId === currentUserId || 
                   (post.influencerId?.username === currentUsername && post._id.toString().startsWith('mp'))) && (
                   <button 
                     onClick={() => handleDeletePost(post._id)}
-                    className="text-xs bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-full font-bold transition-all"
+                    className="text-[9px] bg-red-50 dark:bg-red-950/20 text-red-500 hover:bg-red-100 px-2 py-1 rounded-full font-bold transition-all"
                   >
-                    🗑️ Delete
+                    🗑️
                   </button>
                 )}
               </div>
 
-              {/* POST IMAGE — double-tap to like */}
+              {/* POST IMAGE */}
               <div 
-                className="w-full bg-gray-50 flex items-center justify-center relative cursor-pointer"
+                className="w-full bg-gray-50 dark:bg-zinc-950 flex items-center justify-center relative cursor-pointer"
                 onDoubleClick={() => handleLike(post._id)}
               >
                 <img 
                   src={post.imageUrl} 
                   alt="Post" 
-                  className="w-full h-auto max-h-[600px] object-cover"
-                  onError={e => { e.target.onerror=null; e.target.style.minHeight='300px'; e.target.style.background='#f9f9f9'; }}
+                  className="w-full h-auto max-h-[300px] object-cover"
+                  onError={e => { e.target.onerror=null; e.target.style.minHeight='200px'; e.target.style.background='#f9f9f9'; }}
                 />
 
                 {/* Hotspot Overlays */}
@@ -694,44 +694,44 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
                 )}
               </div>
 
-              {/* POST FOOTER (Description & Actions) */}
-              <div className="p-6">
-                <div className="flex items-center gap-4 mb-4">
+              {/* POST FOOTER */}
+              <div className="px-3 py-2.5">
+                <div className="flex items-center gap-3 mb-2">
                   <button 
                     onClick={() => handleLike(post._id)} 
-                    className={`flex items-center gap-1.5 transition-transform focus:outline-none ${likeAnimating[post._id] ? 'like-btn-pop' : ''}`}
+                    className={`flex items-center gap-1 transition-transform focus:outline-none ${likeAnimating[post._id] ? 'like-btn-pop' : ''}`}
                   >
-                    <span className="text-2xl leading-none" style={{ filter: (post.likes||[]).includes(currentUserId) ? 'drop-shadow(0 0 4px #f43f5e)' : 'none' }}>
+                    <span className="text-base leading-none" style={{ filter: (post.likes||[]).includes(currentUserId) ? 'drop-shadow(0 0 4px #f43f5e)' : 'none' }}>
                       {(post.likes || []).includes(currentUserId) ? "❤️" : "🤍"}
                     </span>
-                    <span className={`text-sm font-bold transition-colors ${(post.likes||[]).includes(currentUserId) ? 'text-rose-500' : 'text-gray-600'}`}>
+                    <span className={`text-xs font-bold transition-colors ${(post.likes||[]).includes(currentUserId) ? 'text-rose-500' : 'text-gray-600 dark:text-gray-400'}`}>
                       {(post.likes || []).length}
                     </span>
                   </button>
                   <button onClick={() => document.getElementById(`comment-${post._id}`).focus()} className="flex items-center gap-1 hover:scale-110 transition-transform">
-                    <span className="text-2xl">💬</span>
-                    <span className="text-sm font-bold text-gray-600">{(post.comments || []).length}</span>
+                    <span className="text-base">💬</span>
+                    <span className="text-xs font-bold text-gray-600 dark:text-gray-400">{(post.comments || []).length}</span>
                   </button>
-                  <button className="text-2xl hover:scale-110 transition-transform">🚀</button>
+                  <button className="text-base hover:scale-110 transition-transform">🚀</button>
                 </div>
                 {post.description && (
-                  <p className="text-sm text-gray-800 leading-relaxed mb-4">
-                    <span className="font-bold mr-2">@{post.influencerId?.username}</span>
+                  <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed mb-2">
+                    <span className="font-bold mr-1">@{post.influencerId?.username}</span>
                     {post.description}
                   </p>
                 )}
                 
-                {/* Comments Section */}
-                <div className="mb-6 space-y-2">
+                {/* Comments */}
+                <div className="mb-2 space-y-1">
                   {(post.comments || []).map((c, idx) => (
-                    <p key={idx} className="text-xs text-gray-800">
-                      <span className="font-bold mr-2">@{c.userId?.username || "user"}</span>
+                    <p key={idx} className="text-[10px] text-gray-700 dark:text-gray-300">
+                      <span className="font-bold mr-1">@{c.userId?.username || "user"}</span>
                       {c.text}
                     </p>
                   ))}
                 </div>
                 
-                <div className="flex gap-2 mb-4">
+                <div className="flex gap-2 mb-2">
                   <input 
                     id={`comment-${post._id}`}
                     type="text" 
@@ -739,12 +739,12 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
                     value={commentInputs[post._id] || ""}
                     onChange={(e) => setCommentInputs(prev => ({ ...prev, [post._id]: e.target.value }))}
                     onKeyDown={(e) => e.key === 'Enter' && handleComment(post._id)}
-                    className="flex-1 bg-gray-50 border-none rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-black outline-none"
+                    className="flex-1 bg-gray-50 dark:bg-zinc-800 border-none rounded-full px-3 py-1.5 text-xs focus:ring-2 focus:ring-[#FBBF24] outline-none dark:text-gray-200"
                   />
                   <button 
                     onClick={() => handleComment(post._id)}
                     disabled={!commentInputs[post._id]?.trim()}
-                    className="font-bold text-sm text-blue-600 disabled:opacity-50 hover:text-blue-800"
+                    className="font-bold text-xs text-blue-500 disabled:opacity-50 hover:text-blue-700"
                   >
                     Post
                   </button>
@@ -756,7 +756,7 @@ export default function Feed({ setPage, setSelectedOutfit, setFromShop }) {
                     setFromShop(false);
                     setPage("AI Try-On");
                   }}
-                  className="w-full bg-gray-100 hover:bg-gray-200 text-black font-bold py-3 rounded-2xl text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-black dark:text-white font-bold py-2 rounded-xl text-[10px] uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5"
                 >
                   ✨ Try This Look
                 </button>
